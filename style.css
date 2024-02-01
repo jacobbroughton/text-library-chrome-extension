@@ -4,10 +4,43 @@
   padding: 0;
 }
 
+body[data-theme="dark"] {
+  --color-text: #ffffffde;
+  --color-text-secondary: #aab3be;
+  --color-text-disabled: #6f6f6f;
+  --color-bg-primary: #333333;
+  --color-bg-secondary: #444444;
+  --color-bg-interactive: #555;
+  --color-bg-interactive-hover: #ffffff29;
+  --color-link: orange;
+  --color-border: #b3bdc97a;
+  --subtle-box-shadow: 0 1px 2px #000000;
+  --heavy-box-shadow: 2px 2px 5px #0000003e;
+  --loading-dots-color: white;
+}
+
+body[data-theme="light"] {
+  --color-text: #1a202c;
+  --color-text-secondary: #718096;
+  --color-text-disabled: #aaa;
+  --color-bg-primary: #f0f2f6;
+  --color-bg-secondary: #fff;
+  --color-bg-interactive: #e9ecf3;
+  --color-bg-interactive-hover: #e5e7eb;
+  --color-link: #0079d3;
+  --color-border: #050c1349;
+  --subtle-box-shadow: 0 1px 2px #00000033;
+  --heavy-box-shadow: 2px 2px 5px #0000001e;
+  --loading-dots-color: #333;
+}
+
 body {
-  background-color: lightgrey;
-  min-width: 400px;
+  background-color: var(--color-bg-primary);
+  min-width: 450px;
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 body > .header {
@@ -18,9 +51,36 @@ body > .header {
   justify-content: space-between;
   padding: 10px;
   border-bottom: grey 1px solid;
+  gap: 25px;
 }
 
 body > .header > h3 {
+  display: flex;
+  gap: 5px;
+  color: var(--color-text);
+}
+
+body > .header > h3 .info-icon,
+body > .header > h3 .warning-icon {
+  padding: 3px;
+  border-radius: 100px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: gray 1px solid;
+  /* font-size: 0.875rem; */
+  cursor: help;
+}
+body > .header > h3 .info-icon {
+  background-color: orange;
+}
+
+body > .header > h3 .warning-icon {
+  background-color: crimson;
+  color: white;
 }
 
 body > .header > .controls {
@@ -37,34 +97,54 @@ body > .header > .controls .file-input {
 
 body > .header > .controls button,
 body > .header > .controls .import-label {
-  appearance: none;
-  border: 1px solid black;
-  background: grey;
-  color: white;
-  border-radius: 3px;
+  align-self: flex-start;
+  background-color: transparent;
+  font-weight: 600;
+  color: var(--color-text);
   font-size: 0.9rem;
-  padding: 3px 5px;
+  border: none;
+  border-radius: 3px;
   cursor: pointer;
+  background-color: var(--color-bg-secondary);
+  box-shadow: var(--subtle-box-shadow);
+  padding: 5px 8px;
+  transition: background-color 0.05s ease;
 }
 
 body > .header > .controls button:hover,
 body > .header > .controls .import-label:hover {
-  background: rgb(105, 105, 105);
+  background: rgb(226, 226, 226);
 }
 
-body > .texts-container {
-  margin-top: 10px;
+body > .notes-container {
+  display: flex;
+  flex-direction: column;
   padding: 10px;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 
-body > .texts-container textarea {
+body > .notes-container > textarea {
+  height: 100%;
   width: 100%;
   resize: vertical;
-  padding: 10px;
+  padding: 8px;
+  min-height: 50px;
   border-radius: 5px;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid transparent;
+  box-shadow: var(--subtle-box-shadow);
+  color: var(--color-text);
+  transition: 0.05s border-color ease;
+  /* font-family: inherit; */
+}
+
+body > .notes-container > textarea:hover {
+  border: 1px solid var(--color-border);
 }
 
 @font-face {
-  font-family: 'OpenSans-Regular';
-  src: url('/Users/JacobBroughton/Library/Fonts/OpenSans-Regular.ttf')
+  font-family: "OpenSans-Regular";
+  src: url("/Users/JacobBroughton/Library/Fonts/OpenSans-Regular.ttf");
 }
