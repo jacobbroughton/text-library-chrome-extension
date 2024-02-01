@@ -4,10 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Extension Name</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <button>New Text +</button>
+    <div class="controls">
+      <button class="new-text-button">New Text +</button>
+      <button class="save-button">Save</button>
+      <label for="file-input" class="import-label">Import</label>
+      <input type="file" class="file-input" id="file-input" style="visibility:hidden;" />
+    </div>
+
+    <div class="texts-container"></div>
     <script src="popup.js"></script>
   </body>
 </html>

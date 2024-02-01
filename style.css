@@ -1,3 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: lightgrey;
+  min-width: 400px;
+  font-size: 16px;
+}
+
+body .controls {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 10px;
+  border-bottom: grey 1px solid;
+}
+
+body .controls button {
+  white-space: nowrap;
+}
+
+body .controls button,
+body .controls .import-label {
+  appearance: none;
+  border: 1px solid black;
+  background: grey;
+  color: white;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+body .controls button:hover,
+body .controls .import-label:hover {
+  background: rgb(105, 105, 105);
+}
+
+body .texts-container {
+  margin-top: 10px;
+}
+
+body .texts-container textarea {
+  width: 100%;
+  resize: vertical;
 }
