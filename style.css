@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -8,22 +10,33 @@ body {
   font-size: 16px;
 }
 
-body .controls {
-  width: 100%;
+body > .header {
   display: flex;
+  width: 100%;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  gap: 10px;
   border-bottom: grey 1px solid;
 }
 
-body .controls button {
+body > .header > h3 {
+}
+
+body > .header > .controls {
+  gap: 10px;
+}
+
+body > .header > .controls button {
   white-space: nowrap;
 }
 
-body .controls button,
-body .controls .import-label {
+body > .header > .controls .file-input {
+  display: none;
+}
+
+body > .header > .controls button,
+body > .header > .controls .import-label {
   appearance: none;
   border: 1px solid black;
   background: grey;
@@ -34,16 +47,24 @@ body .controls .import-label {
   cursor: pointer;
 }
 
-body .controls button:hover,
-body .controls .import-label:hover {
+body > .header > .controls button:hover,
+body > .header > .controls .import-label:hover {
   background: rgb(105, 105, 105);
 }
 
-body .texts-container {
+body > .texts-container {
   margin-top: 10px;
+  padding: 10px;
 }
 
-body .texts-container textarea {
+body > .texts-container textarea {
   width: 100%;
   resize: vertical;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+@font-face {
+  font-family: 'OpenSans-Regular';
+  src: url('/Users/JacobBroughton/Library/Fonts/OpenSans-Regular.ttf')
 }

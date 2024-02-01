@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let texts = [];
   let lastTextId = texts[texts.length - 1]?.id || -1;
 
+  // * New Text
   newTextButton.addEventListener("click", () => {
     const newTextId = (lastTextId += 1);
 
@@ -27,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     texts.unshift({ id: newTextId, content: "" });
   });
 
+  // * Save
   saveButton.addEventListener("click", () => {
     const downloadLink = document.createElement("a");
 
@@ -40,25 +42,33 @@ document.addEventListener("DOMContentLoaded", function () {
     URL.revokeObjectURL(downloadLink.href);
   });
 
-  // fileInput.addEventListener("change", (e) => {
-  //   if (e.target.files[0]) {
-  //     const file = e.target.files[0]
+  // * Import
+  fileInput.addEventListener("change", (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
 
-  //     const reader = new FileReader()
+      const reader = new FileReader();
+``
+      reader.onload = function (e) {
+        const content = e.target.result;
+        JSON.parse(content);
+        refreshTexts(JSON.parse(content));
+      };
 
-  //     reader.onload = function(e) {
-  //       const content = e.target.result
-  //       // this is where i could use the content of the file
-  //       alert(content.toString())
-  //     }
+      reader.readAsText(file);
+    } else {
+      alert("No file selected");
+    }
+  });
 
-  //     // const useThisFileButton = document.createElement("button");
-  //     // useThisFileButton.innerText = "Use This File";
-  //     // controls.append(useThisFileButton);
-  //     // console.log(controls)
-  //     // alert(e.target.files[0].name);
-  //   } else {
-  //     alert("No file selected")
-  //   }
-  // });
+  // * Refresh
+  function refreshTexts(newTexts) {
+    texts = newTexts;
+    texts.forEach((text) => {
+      const textarea = document.createElement("textarea");
+      textarea.setAttribute("id", text.id);
+      textarea.innerText = text.content;
+      textsContainer.append(textarea);
+    });
+  }
 });
