@@ -1,15 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Text Library",
-  "description": "This is a chrome extension built for the simple task of keeping text that you use often at an arm's length to copy and paste.",
+  "name": "Note Library",
+  "description": "This is a chrome extension built for  keeping notes or often-used strings of text at an arm's length to easily copy and paste.",
   "version": "1.0",
-  "permissions": ["activeTab"],
   "browser_action": {
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
       "js": ["content.js"]
     }
   ]

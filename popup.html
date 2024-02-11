@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body data-theme="light">
-    <div class="header">
-      <h3>
-        Note Library
+    <div class="header section">
+      <h3>Note Library</h3>
+      <div class="hover-icons">
         <span
           class="info-icon"
           title="This data is only stored in your brower's local storage and, if you choose to export, on your computer's file system. There are no communications to any servers to store this data."
@@ -19,21 +19,19 @@
           title="Be careful storing critical data here (passwords, connection strings, etc.), as since is''s stored on local storage, other tabs or scripts can easily grab values that are stored here..."
           >!</span
         >
-      </h3>
-      <div class="controls">
-        <button class="new-note-button">New Note +</button>
-        <button class="export-button">Export</button>
-        <label
-          for="file-input"
-          class="import-label"
-          title="Import data from a file that you previously exported. By default, this is a .txt file containing JSON data stored in your 'downloads' folder and contains the 'textlib' in the file name."
-          >Import</label
-        >
-        <input type="file" class="file-input" id="file-input" " />
       </div>
     </div>
-
-    <div class="notes-container"></div>
+    <div class="controls section">
+      <button class="new-note-button">New Note +</button>
+      <button class="export-button">Export</button>
+      <label
+        for="file-input"
+        class="import-label"
+        title="Import data from a file that you previously exported. By default, this is a .txt file containing JSON data stored in your 'downloads' folder and contains the 'textlib' in the file name."
+        >Import</label
+      >
+      <input type="file" class="file-input" id="file-input" " />
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>
