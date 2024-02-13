@@ -138,6 +138,7 @@ body > .notes-container {
 body > .notes-container > .note-container {
   display: flex;
   gap: 10px;
+  position: relative;
 }
 
 body > .notes-container > .note-container > textarea {
@@ -152,6 +153,7 @@ body > .notes-container > .note-container > textarea {
   box-shadow: var(--subtle-box-shadow);
   color: var(--color-text);
   transition: 0.05s border-color ease;
+  white-space: pre-wrap;
 }
 
 body > .notes-container > .note-container > textarea:hover {

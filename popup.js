@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
         modifiedDttm: null,
       },
     ];
-    console.log(updatedNotes);
     refreshNotes(updatedNotes);
   }
 
@@ -77,14 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })),
       ];
 
-      // localStorage.setItem("textLib", JSON.stringify(notes));
       refreshNotes(updatedNotes);
-
-      // for (const node of notesContainer.children) {
-      //   if (node.dataset.id == dataId.Id) {
-      //     notesContainer.removeChild(node);
-      //   }
-      // }
     }
 
     trashButton.addEventListener("click", handleDeleteClick);
@@ -129,7 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
     newTextArea.setAttribute("id", newNoteId);
 
     function handleChange(e) {
-      console.log("before updatedNotes", newestNotes);
       let updatedNotes = [
         ...newestNotes.map((note) => ({
           ...note,
@@ -139,13 +130,36 @@ document.addEventListener("DOMContentLoaded", function () {
           }),
         })),
       ];
-      console.log("after updatedNotes", updatedNotes);
 
-      // localStorage.setItem("textLib", JSON.stringify(notes));
       refreshNotes(updatedNotes);
     }
 
     newTextArea.addEventListener("change", handleChange);
+
+    function handleCopy(e) {
+      const clickedNote = notes.find((note) => note.id == e.target.id);
+      copyToClipboard(clickedNote.content);
+      console.log("Copied", clickedNote.content);
+
+      const noteContainer = document.querySelector(
+        `.note-container[data-data-id="${e.target.id}"]`
+      );
+      console.log(noteContainer);
+      const copiedToClipboardOverlay = document.createElement("div");
+      copiedToClipboardOverlay.style.backgroundColor = "lightgrey";
+      copiedToClipboardOverlay.style.opacity = "0.5";
+      copiedToClipboardOverlay.style.position = "absolute";
+      copiedToClipboardOverlay.style.inset = "0";
+      copiedToClipboardOverlay.innerText = "Copied to clipboard";
+
+      noteContainer.append(copiedToClipboardOverlay);
+
+      setTimeout(() => {
+        noteContainer.removeChild(copiedToClipboardOverlay);
+      }, 1000);
+    }
+
+    newTextArea.addEventListener("click", handleCopy);
 
     return newTextArea;
   }
@@ -183,12 +197,9 @@ document.addEventListener("DOMContentLoaded", function () {
     lastNoteId = notes[notes.length - 1]?.id || -1;
 
     if (notes[0] && !notesContainer) createNotesContainer();
-    console.log(notesContainer.children, notes);
     while (notesContainer.firstChild) {
       notesContainer.removeChild(notesContainer.firstChild);
     }
-
-    console.log(notesContainer.children);
 
     const filteredNotes = notes.filter((note) => {
       if (currentView === "All") {
@@ -201,7 +212,9 @@ document.addEventListener("DOMContentLoaded", function () {
     filteredNotes.forEach((note) => {
       const noteContainer = createNoteContainer(notes, note.id);
       const textarea = createTextArea(notes, note.id);
-      textarea.innerText = note.content;
+      textarea.value = note.content;
+      textarea.addEventL;
+
       noteContainer.append(textarea);
 
       const deleteButton = createDeleteButton(note.id);
@@ -214,6 +227,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       notesContainer.append(noteContainer);
     });
+
+    if (!filteredNotes || filteredNotes.length === 0) {
+      const notesContainer = document.querySelector(".notes-container");
+      notesContainer.innerText = "Nothing here...Consider adding something!";
+    }
 
     localStorage.setItem("textLib", JSON.stringify(updatedNotes));
   }
