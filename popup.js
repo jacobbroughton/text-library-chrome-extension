@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function createDeleteButton(dataId) {
     const trashButton = document.createElement("button");
     trashButton.classList.add("delete-button");
+    trashButton.innerText = 'Delete'
     trashButton.dataset.dataId = dataId;
 
     function handleDeleteClick(e) {
@@ -136,31 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     newTextArea.addEventListener("change", handleChange);
 
-    function handleCopy(e) {
-      const clickedNote = notes.find((note) => note.id == e.target.id);
-      copyToClipboard(clickedNote.content);
-      console.log("Copied", clickedNote.content);
-
-      const noteContainer = document.querySelector(
-        `.note-container[data-data-id="${e.target.id}"]`
-      );
-      console.log(noteContainer);
-      const copiedToClipboardOverlay = document.createElement("div");
-      copiedToClipboardOverlay.style.backgroundColor = "lightgrey";
-      copiedToClipboardOverlay.style.opacity = "0.5";
-      copiedToClipboardOverlay.style.position = "absolute";
-      copiedToClipboardOverlay.style.inset = "0";
-      copiedToClipboardOverlay.innerText = "Copied to clipboard";
-
-      noteContainer.append(copiedToClipboardOverlay);
-
-      setTimeout(() => {
-        noteContainer.removeChild(copiedToClipboardOverlay);
-      }, 1000);
-    }
-
-    newTextArea.addEventListener("click", handleCopy);
-
     return newTextArea;
   }
 
@@ -213,18 +189,25 @@ document.addEventListener("DOMContentLoaded", function () {
       const noteContainer = createNoteContainer(notes, note.id);
       const textarea = createTextArea(notes, note.id);
       textarea.value = note.content;
-      textarea.addEventL;
-
       noteContainer.append(textarea);
-
+      
+      const controls = document.createElement("div")
+      controls.classList.add('controls')
+      
+      
       const deleteButton = createDeleteButton(note.id);
-      const trashSVG = document.createElement("img");
-      trashSVG.src = "trash.svg";
-      // trashSVG.alt = 'Delete'
-      deleteButton.append(trashSVG);
+      // const trashSVG = document.createElement("img");
+      // trashSVG.src = "trash.svg";
+      // deleteButton.append(trashSVG);
 
-      noteContainer.append(deleteButton);
+      const copyButton = document.createElement('button')
+      copyButton.classList.add('copy-button')
+      copyButton.innerText = 'Copy To Clipboard'
+      copyButton.addEventListener("click", handleCopy);
 
+      controls.append(deleteButton);
+      controls.append(copyButton)
+      noteContainer.append(controls)
       notesContainer.append(noteContainer);
     });
 
@@ -234,6 +217,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     localStorage.setItem("textLib", JSON.stringify(updatedNotes));
+  }
+
+  function handleCopy(e) {
+    const clickedNote = notes.find((note) => note.id == e.target.id);
+    copyToClipboard(clickedNote.content);
+    // console.log("Copied", clickedNote.content);
+
+    // const noteContainer = document.querySelector(
+    //   `.note-container[data-data-id="${e.target.id}"]`
+    // );
+    // console.log(noteContainer);
+    // const copiedToClipboardOverlay = document.createElement("div");
+    // copiedToClipboardOverlay.classList.add('copied-overlay')
+    // copiedToClipboardOverlay.style.backgroundColor = "lightgrey";
+    // copiedToClipboardOverlay.style.opacity = "0.5";
+    // copiedToClipboardOverlay.style.position = "absolute";
+    // copiedToClipboardOverlay.style.inset = "0";
+    // copiedToClipboardOverlay.innerText = "Copied to clipboard";
+
+    // noteContainer.append(copiedToClipboardOverlay);
+
+    // setTimeout(() => {
+    //   noteContainer.removeChild(copiedToClipboardOverlay);
+    // }, 1000);
   }
 
   async function copyToClipboard(text) {
